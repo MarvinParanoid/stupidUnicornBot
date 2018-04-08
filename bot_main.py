@@ -15,7 +15,7 @@ def user_insert(db, user):
 		if 'last_name' in user:
 			last_name = user['last_name']
 		if 'username' in user:
-			id = user['username']
+			username = user['username']
 		db.insert_user(id, first_name, last_name, username)
 
 def chat_insert(db, chat):
