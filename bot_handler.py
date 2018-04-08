@@ -6,6 +6,7 @@ class BotHandler:
     def __init__(self, token):
         self.token = token
         self.api_url = "https://api.telegram.org/bot{}/".format(token)
+        self.oops_message = "Sorry, i couldn't do it :( But i am still pretty, yeah? :3"
 
     def get_updates(self, offset=None, timeout=30):
         method = 'getUpdates'
@@ -18,7 +19,7 @@ class BotHandler:
         params = {'chat_id': chat_id, 'text': text}
         method = 'sendMessage'
         resp = requests.post(self.api_url + method, params)
-        return resp
+        return resp 
 
     def send_photo(self, chat_id, photo):
         params = {'chat_id': chat_id, 'photo': photo}
@@ -27,7 +28,8 @@ class BotHandler:
         return resp
 
     def send_oops_message(self, chat_id):
-        self.send_message(chat_id, "Sorry, i couldn't do it :( But i am still pretty, yeah? :3")
+        print "Something goes wrong"
+        self.send_message(chat_id, self.oops_message)
 
     def get_chat_id(update):  
         chat_id = update['message']['chat']['id']
@@ -39,12 +41,15 @@ class BotHandler:
             self.send_photo(chat_id, resp['file'])
         except:
             self.send_oops_message(chat_id)
+            return self.oops_message
 
     def send_random_quote(self, chat_id):
         try:
             resp = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru").json()
             s =  resp['quoteText'] + ' ' + resp['quoteAuthor']
-            print s
             self.send_message(chat_id, s)
+            print s
+            return s
         except:
             self.send_oops_message(chat_id)
+            return self.oops_message
