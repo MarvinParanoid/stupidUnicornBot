@@ -21,8 +21,8 @@ class BotHandler:
         resp = requests.post(self.api_url + method, params)
         return resp 
 
-    def send_photo(self, chat_id, photo):
-        params = {'chat_id': chat_id, 'photo': photo}
+    def send_photo(self, chat_id, photo, caption=""):
+        params = {'chat_id': chat_id, 'photo': photo, 'caption': caption}
         method = 'sendPhoto'
         resp = requests.post(self.api_url + method, params)
         return resp
@@ -50,6 +50,17 @@ class BotHandler:
             self.send_message(chat_id, s)
             print s
             return s
+        except:
+            self.send_oops_message(chat_id)
+            return self.oops_message
+
+    def send_apod(self, chat_id, api_key):
+        try:
+            params = {'api_key': api_key}
+            resp = requests.get("https://api.nasa.gov/planetary/apod", params)
+            resp_json = resp.json()
+            print resp_json
+            self.send_photo(chat_id, resp_json['url'], resp_json['title'])
         except:
             self.send_oops_message(chat_id)
             return self.oops_message

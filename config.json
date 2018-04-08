@@ -5,5 +5,6 @@
 		"user": "",
 		"host": "",
 		"password": ""
-	}
+	},
+	"nasa_api_key": ""
 }

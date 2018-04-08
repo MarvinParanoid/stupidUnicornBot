@@ -57,6 +57,8 @@ def main():
 
 	bot = BotHandler(config_json['token'])
 	db = DataBaseHandler(config_json['db']['name'], config_json['db']['user'], config_json['db']['host'], config_json['db']['password'])
+	nasa_api_key = config_json['nasa_api_key']
+	print nasa_api_key
 	new_offset = None
 
 	while True:
@@ -86,6 +88,10 @@ def main():
 					if chat_text[0:4] == "/cat":
 						is_send = 1
 						response = bot.send_random_cat(chat_id)
+					elif chat_text[0:5] == "/apod":
+						is_send = 1
+						response = bot.send_apod(chat_id, nasa_api_key)
+
 
 			new_offset = update_id + 1
 
