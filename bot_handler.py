@@ -28,7 +28,7 @@ class BotHandler:
         return resp
 
     def send_oops_message(self, chat_id):
-        print "Something goes wrong"
+        print("Something goes wrong")
         self.send_message(chat_id, self.oops_message)
 
     def get_chat_id(update):  
@@ -48,7 +48,7 @@ class BotHandler:
             resp = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=ru").json()
             s =  resp['quoteText'] + ' ' + resp['quoteAuthor']
             self.send_message(chat_id, s)
-            print s
+            print(s)
             return s
         except:
             self.send_oops_message(chat_id)
@@ -59,7 +59,7 @@ class BotHandler:
             params = {'api_key': api_key}
             resp = requests.get("https://api.nasa.gov/planetary/apod", params)
             resp_json = resp.json()
-            print resp_json
+            print(resp_json)
             self.send_photo(chat_id, resp_json['url'], resp_json['title'])
         except:
             self.send_oops_message(chat_id)
