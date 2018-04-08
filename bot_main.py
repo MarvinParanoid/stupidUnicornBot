@@ -58,7 +58,7 @@ def main():
 	bot = BotHandler(config_json['token'])
 	db = DataBaseHandler(config_json['db']['name'], config_json['db']['user'], config_json['db']['host'], config_json['db']['password'])
 	nasa_api_key = config_json['nasa_api_key']
-	print nasa_api_key
+	print(nasa_api_key)
 	new_offset = None
 
 	while True:
@@ -66,7 +66,7 @@ def main():
 		if len(updates):
 
 			update = updates[-1]
-			print json.dumps(update, indent=4, sort_keys=True)
+			print(json.dumps(update, indent=4, sort_keys=True))
 
 			update_id = update['update_id']
 			chat_id = chat_name = chat_text = ""
@@ -80,7 +80,7 @@ def main():
 				if 'first_name' in update['message']['chat']:
 					chat_name = update['message']['chat']['first_name']
 
-			print chat_name + ": " + chat_text
+			print(chat_name + ": " + chat_text)
 
 			is_send = 0
 			if 'entities' in update['message'] and 'type' in update['message']['entities'][0]:
