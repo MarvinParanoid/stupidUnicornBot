@@ -1,3 +1,9 @@
 {
-	"token": <token>
+	"token": "",
+	"db": {
+		"name": "",
+		"user": "",
+		"host": "",
+		"password": ""
+	}
 }
